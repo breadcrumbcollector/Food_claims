@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 18 23:10:06 2023
+@author: yufeichen
+"""
+
+# Import data
+import pandas as pd
+from matplotlib import pyplot as plt
+from matplotlib import colors
+from matplotlib.ticker import PercentFormatter
+
+coffee = pd.read_csv('/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/coffee.csv')
+
+print(coffee.dtypes)
+
+print(coffee.head())
+
+print(coffee.isna().sum()) #Q1(2)
+
+coffee['Rating']=coffee['Rating'].fillna(0)
+coffee['Reviews']=coffee['Reviews'].fillna(coffee['Reviews'].median())
+coffee['Dine in option']=coffee['Dine in option'].fillna('False')
+coffee['Takeout option']=coffee['Takeout option'].fillna('False')
+
+print(coffee.isna().sum()) #double check
+print(coffee.head())
+
+# Reviews by type
+Total_reviews = coffee.groupby('Place type')['Reviews'].sum().to_frame()
+
+# Total observations
+Total_obs = coffee.groupby('Place type').count()
+
+#export data
+coffee.to_excel(r'/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/coffee_cleaned.xlsx', index=False)
+Total_reviews.to_excel(r'/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/Total_reviews.xlsx', index=False)
+Total_obs.to_excel(r'/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/Total_observation.xlsx', index=False)
