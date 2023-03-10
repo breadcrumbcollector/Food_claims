@@ -1,5 +1,5 @@
 # coffeeshop
-After initial assessment of the data, the results are as follows:
+Initial assessment of the data:
 claim_id: Contains nominal value. There were 2000 unique claim ids. There is no missing value. All criteria are met.
 time_to_close: Contains discrete value. All values are positive, as expected. Both criteria are met.
 claim_amount: Contains continuous value. Some values did not round to 2 decimal places. Values do not all match the description.
