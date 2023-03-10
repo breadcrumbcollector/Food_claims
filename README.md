@@ -1,4 +1,4 @@
-# Food_Claim
+# Food Claim
 Backgound:
 The client is a fast food chain in Brazil with over 200 outlets. 
 Customers often claim compensation from the company for food poisoning.
