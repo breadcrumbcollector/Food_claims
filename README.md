@@ -27,4 +27,5 @@ As we can see from the scatter plot and the trend line above, the claim amount h
 
 The median time to close of the Fortaleza, Natal, Recife, and Sao Luis are 180, 179, 178, and 179, respectively. As we can see through the first box plot below, the time to close among four locations are very similar. Although, there are outliers (as shown in purple circles) among all four locations, in the second graph below, we removed the outliers to better compare the data between each location. All four locations’ interquartile ranges are very close, with Fortaleza having the highest median (i.e. 179) and Recife having the lowest median (i.e. 176).
 <img width="607" alt="4" src="https://user-images.githubusercontent.com/122923021/224200367-b8738c80-b130-4f75-b0fb-b3cf9022358f.png">
+<img width="610" alt="5" src="https://user-images.githubusercontent.com/122923021/224201016-dfe8a13b-f3cf-471b-b274-cf700be7f287.png">
 
