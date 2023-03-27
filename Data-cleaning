@@ -17,7 +17,7 @@ food_claim = pd.read_csv('/Users/yufeichen/Documents/Mission Data Analyst/Dataca
 print(food_claim.dtypes)
 print(food_claim.head())
 
-#### Q1(2) a. find if there is any missing value and how many.
+## find if there is any missing value and how many.
 print(food_claim.isna().sum()) 
 
 food_claim['amount_paid']=food_claim['amount_paid'].fillna(food_claim['amount_paid'].median())
@@ -26,7 +26,7 @@ food_claim['linked_cases']=food_claim['linked_cases'].fillna(False)
 print(food_claim.isna().sum()) #double check
 print(food_claim.head())
 
-### Q1(1)
+##
 #claim_id
 print(food_claim['claim_id'].nunique()) == print(food_claim.shape[0])
 #There were 2000 unique claim ids, as expected.
