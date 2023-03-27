@@ -1,39 +1,71 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jan 18 23:10:06 2023
+Created on Thu Jan 19 00:35:06 2023
+
 @author: yufeichen
 """
 
-# Import data
+#### Import data
 import pandas as pd
 from matplotlib import pyplot as plt
 from matplotlib import colors
 from matplotlib.ticker import PercentFormatter
+import numpy
 
-coffee = pd.read_csv('/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/coffee.csv')
+food_claim = pd.read_csv('/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/food_claims_2212.csv')
+print(food_claim.dtypes)
+print(food_claim.head())
 
-print(coffee.dtypes)
+#### Q1(2) a. find if there is any missing value and how many.
+print(food_claim.isna().sum()) 
 
-print(coffee.head())
+food_claim['amount_paid']=food_claim['amount_paid'].fillna(food_claim['amount_paid'].median())
+food_claim['linked_cases']=food_claim['linked_cases'].fillna(False)
 
-print(coffee.isna().sum()) #Q1(2)
+print(food_claim.isna().sum()) #double check
+print(food_claim.head())
 
-coffee['Rating']=coffee['Rating'].fillna(0)
-coffee['Reviews']=coffee['Reviews'].fillna(coffee['Reviews'].median())
-coffee['Dine in option']=coffee['Dine in option'].fillna('False')
-coffee['Takeout option']=coffee['Takeout option'].fillna('False')
+### Q1(1)
+#claim_id
+print(food_claim['claim_id'].nunique()) == print(food_claim.shape[0])
+#There were 2000 unique claim ids, as expected.
 
-print(coffee.isna().sum()) #double check
-print(coffee.head())
+#time_to_close
+all(food_claim['time_to_close']) > 0 #All values are positive, as expected.
 
-# Reviews by type
-Total_reviews = coffee.groupby('Place type')['Reviews'].sum().to_frame()
+#claim_amount
+print(food_claim['claim_amount']) #Some values did not round to 2 decimal places.
+food_claim['claim_amount'] = food_claim['claim_amount'].replace('[R$ ]', '', regex=True).astype(float)
+food_claim['claim_amount'] = food_claim['claim_amount'].round(2) #round to 2 decimal places.
+print(food_claim['claim_amount']) #check again
 
-# Total observations
-Total_obs = coffee.groupby('Place type').count()
+#amount_paid
+x = food_claim['amount_paid']%1
+all(x) > 10 #Some values did not round to 2 decimal places.
+food_claim['amount_paid'] = food_claim['amount_paid'].round(2) #round to 2 decimal places.
+print(food_claim['amount_paid']) #check again
 
-#export data
-coffee.to_excel(r'/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/coffee_cleaned.xlsx', index=False)
-Total_reviews.to_excel(r'/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/Total_reviews.xlsx', index=False)
-Total_obs.to_excel(r'/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/Total_observation.xlsx', index=False)
+#location
+print(food_claim['location'].unique()) #There were 4 unique locations, as expected
+
+#individuals_on_claim
+print(food_claim['individuals_on_claim'].min()) #There is minimum 1 person, as expected
+
+#linked_cases
+print(food_claim['linked_cases'].unique()) #It is either True or False, as expected
+
+#cause
+print(food_claim['cause'].unique())
+food_claim['cause'] = food_claim['cause'].replace('VEGETABLES', 'vegetable', regex=True)
+#There are  also "VEGETABLES" and " Meat".
+food_claim['cause'] = food_claim['cause'].replace(' Meat', 'meat', regex=True)
+print(food_claim['cause'].unique())
+
+food_claim.to_excel(r'/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/food_claim_cleaned.xlsx', index=False)
+
+boxplot = food_claim.boxplot(column=['location', 'time_to_close'])
+
+food_claim['time_to_close'].boxplot(food_claim['location'])
+
+
