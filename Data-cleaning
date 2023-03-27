@@ -8,10 +8,6 @@ Created on Thu Jan 19 00:35:06 2023
 
 #### Import data
 import pandas as pd
-from matplotlib import pyplot as plt
-from matplotlib import colors
-from matplotlib.ticker import PercentFormatter
-import numpy
 
 food_claim = pd.read_csv('/Users/yufeichen/Documents/Mission Data Analyst/Datacamp DA101 test/food_claims_2212.csv')
 print(food_claim.dtypes)
