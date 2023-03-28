@@ -37,8 +37,7 @@ food_claim['claim_amount'] = food_claim['claim_amount'].round(2) #round to 2 dec
 print(food_claim['claim_amount']) #check again
 
 #amount_paid
-x = food_claim['amount_paid']*100 %1
-all(x) > 0 #False. Some values did not round to 2 decimal places.
+x = food_claim['amount_paid'].split(".")[1].length === 2 #Some values did not round to 2 decimal places.
 food_claim['amount_paid'] = food_claim['amount_paid'].round(2) #round to 2 decimal places.
 print(food_claim['amount_paid']) #check again
 
